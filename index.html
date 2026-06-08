@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-Electrical Inspection
+LRT Intertripping Inspection
 </title>
 
 <link rel="stylesheet"
@@ -22,83 +22,179 @@ href="style.css">
 <div class="container">
 
 <h2>
-Electrical Inspection Form
+Intertripping Test Form
 </h2>
 
 <form id="inspectionForm">
 
-<input
-type="text"
-id="petugas"
-placeholder="Nama Petugas"
-required>
+<!-- Inspector Name -->
+
+<label for="petugas">
+Inspector Name
+</label>
 
 <input
 type="text"
-id="lokasi"
-placeholder="GPS Location"
-readonly>
+id="petugas"
+placeholder="Input Inspector Name"
+required>
+
+
+
+<!-- Equipment Name -->
+
+<label for="equipment">
+Equipment Name
+</label>
 
 <input
 type="text"
 id="equipment"
-placeholder="Equipment Name"
+placeholder="Input Equipment Name"
 required>
 
-<select id="kategori">
 
-<option>Velodrome Station</option>
+<!-- Station -->
 
-<option>Equestrian Station</option>
+<label for="station">
+Station
+</label>
 
-<option>Pulomas Station</option>
-
-<option>Boulevard Selatan Station</option>
-
-<option>Boulevard Utara Station</option>
-
-<option>Pengangsang Dua Station</option>
-
-</select>
-
-
-<select id="kategori">
-
-<option>BLS</option>
-
-<option>DC Switchgear</option>
-
-</select>
-
-
-<select id="kategori">
-
-<option>Applied</option>
-<option>Not Applied</option>
-
-</select>
-
-<select id="kategori">
-
-<option>Ok</option>
-<option>Not Oke</option>
-
-</select>
-
-
-
-
-
-<input
-type="number"
-id="nilai"
-placeholder="Inspection Score"
+<select
+id="station"
 required>
+
+<option value="">
+-- Select Station --
+</option>
+
+<option>
+Velodrome Station
+</option>
+
+<option>
+Equestrian Station
+</option>
+
+<option>
+Pulomas Station
+</option>
+
+<option>
+Boulevard Selatan Station
+</option>
+
+<option>
+Boulevard Utara Station
+</option>
+
+<option>
+Pengangsaan Dua Station
+</option>
+
+</select>
+
+
+<!-- Panel Name -->
+
+<label for="panelName">
+Panel Name
+</label>
+
+<select
+id="panelName"
+required>
+
+<option value="">
+-- Select Panel --
+</option>
+
+<option>
+HSCB out #1
+</option>
+
+<option>
+HSCB out #2
+</option>
+<option>
+HSCB out #3
+</option>
+<option>
+HSCB out #4
+</option>
+
+</select>
+
+
+<!-- Intertripping Type -->
+
+<label for="intertripType">
+Intertripping Type
+</label>
+
+<select
+id="intertripType"
+required>
+
+<option value="">
+-- Select Type --
+</option>
+
+<option>
+Applied
+</option>
+
+<option>
+Not Applied
+</option>
+
+</select>
+
+
+<!-- Location -->
+
+
+
+<!-- Status -->
+
+<label for="statusCondition">
+Status
+</label>
+
+<select
+id="statusCondition"
+required>
+
+<option value="">
+-- Select Status --
+</option>
+
+<option>
+OK
+</option>
+
+<option>
+Not OK
+</option>
+
+</select>
+
+<!-- Description -->
+
+<label for="keterangan">
+Finding</label>
 
 <textarea
 id="keterangan"
-placeholder="Description">
+placeholder="Input Finding">
 </textarea>
+
+
+<!-- Photo -->
+
+<label for="photo">
+Photo Evidence
+</label>
 
 <input
 type="file"
@@ -107,10 +203,15 @@ accept="image/*"
 capture="environment"
 required>
 
-<img id="preview">
+<img
+id="preview"
+style="display:none;width:100%;margin-top:10px;">
+
 
 <button type="submit">
-Submit
+
+Submit Inspection
+
 </button>
 
 </form>
