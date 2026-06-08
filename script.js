@@ -1,28 +1,36 @@
 const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbxRtTkqlBT2KBxlh7O1FCRMzVZNmIoClBPW2uaouH6plpzXAHc9RRLS0HuE5yNV8qpHKQ/exec";
+"https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
 
-navigator.geolocation.getCurrentPosition(
-
-(position)=>{
-
-document
-.getElementById("lokasi")
-.value =
-
-position.coords.latitude +
-"," +
-position.coords.longitude;
-
-}
-
+const form =
+document.getElementById(
+"inspectionForm"
 );
 
-document
-.getElementById("photo")
-.addEventListener(
+const photoInput =
+document.getElementById(
+"photo"
+);
 
+const preview =
+document.getElementById(
+"preview"
+);
+
+const statusBox =
+document.getElementById(
+"status"
+);
+
+const submitBtn =
+document.getElementById(
+"submitBtn"
+);
+
+
+/* Preview Photo */
+
+photoInput.addEventListener(
 "change",
-
 function(event){
 
 const file =
@@ -36,11 +44,6 @@ new FileReader();
 reader.onload =
 function(e){
 
-const preview =
-document.getElementById(
-"preview"
-);
-
 preview.src =
 e.target.result;
 
@@ -49,89 +52,37 @@ preview.style.display =
 
 };
 
-reader.readAsDataURL(
-file
-);
+reader.readAsDataURL(file);
 
 }
-
 );
 
-document
-.getElementById(
-"inspectionForm"
-)
 
-.addEventListener(
+/* Submit Form */
 
+form.addEventListener(
 "submit",
+function(e){
 
-function(event){
+e.preventDefault();
 
-event.preventDefault();
-
-uploadData();
+uploadInspection();
 
 }
-
 );
 
-function uploadData(){
 
-const petugas =
-document.getElementById(
-"petugas"
-).value;
+function uploadInspection(){
 
-const lokasi =
-document.getElementById(
-"lokasi"
-).value;
+submitBtn.disabled = true;
 
-const equipment =
-document.getElementById(
-"equipment"
-).value;
+submitBtn.innerHTML =
+"Uploading...";
 
-const kategori =
-document.getElementById(
-"kategori"
-).value;
+statusBox.innerHTML = "";
 
-const nilai =
-Number(
-document.getElementById(
-"nilai"
-).value
-);
-
-const keterangan =
-document.getElementById(
-"keterangan"
-).value;
-
-let status = "";
-
-if(nilai >= 90){
-
-status = "OK";
-
-}
-else if(nilai >= 75){
-
-status = "WARNING";
-
-}
-else{
-
-status = "CRITICAL";
-
-}
-
-const photo =
-document.getElementById(
-"photo"
-).files[0];
+const file =
+photoInput.files[0];
 
 const reader =
 new FileReader();
@@ -139,30 +90,56 @@ new FileReader();
 reader.onload =
 function(){
 
-fetch(
+const payload = {
 
-WEB_APP_URL,
+petugas:
+document.getElementById(
+"petugas"
+).value,
 
-{
+station:
+document.getElementById(
+"station"
+).value,
 
-method:"POST",
+panelName:
+document.getElementById(
+"panelName"
+).value,
 
-body:JSON.stringify({
+intertripType:
+document.getElementById(
+"intertripType"
+).value,
 
-petugas,
-lokasi,
-equipment,
-kategori,
-nilai,
-status,
-keterangan,
+bypass:
+document.getElementById(
+"bypass"
+).value,
+
+statusCondition:
+document.getElementById(
+"statusCondition"
+).value,
+
+finding:
+document.getElementById(
+"keterangan"
+).value,
+
 image:
 reader.result
 
-})
+};
 
+fetch(
+WEB_APP_URL,
+{
+method:"POST",
+body:JSON.stringify(
+payload
+)
 }
-
 )
 
 .then(
@@ -170,38 +147,28 @@ response =>
 response.json()
 )
 
-.then(data => {
+.then(data=>{
 
 if(data.success){
 
-document
-.getElementById(
-"status"
-)
-.innerHTML =
-"Upload Berhasil";
+statusBox.className =
+"success";
 
-document
-.getElementById(
-"inspectionForm"
-)
-.reset();
+statusBox.innerHTML =
+"✓ Inspection Successfully Submitted";
 
-document
-.getElementById(
-"preview"
-)
-.style.display =
+form.reset();
+
+preview.style.display =
 "none";
 
 }
 else{
 
-document
-.getElementById(
-"status"
-)
-.innerHTML =
+statusBox.className =
+"error";
+
+statusBox.innerHTML =
 data.error;
 
 }
@@ -210,19 +177,26 @@ data.error;
 
 .catch(error=>{
 
-document
-.getElementById(
-"status"
-)
-.innerHTML =
+statusBox.className =
+"error";
+
+statusBox.innerHTML =
 error;
+
+})
+
+.finally(()=>{
+
+submitBtn.disabled =
+false;
+
+submitBtn.innerHTML =
+"Submit Inspection";
 
 });
 
 };
 
-reader.readAsDataURL(
-photo
-);
+reader.readAsDataURL(file);
 
 }

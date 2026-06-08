@@ -9,11 +9,10 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-LRT Intertripping Inspection
+Intertripping Test Form
 </title>
 
-<link rel="stylesheet"
-href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -21,186 +20,152 @@ href="style.css">
 
 <div class="container">
 
-<h2>
+<div class="card">
+
+<h1>
 Intertripping Test Form
-</h2>
+</h1>
 
 <form id="inspectionForm">
 
-<!-- Inspector Name -->
+<div class="form-group">
 
-<label for="petugas">
+<label>
 Inspector Name
 </label>
 
 <input
 type="text"
 id="petugas"
-placeholder="Input Inspector Name"
+placeholder="Enter Inspector Name"
 required>
 
+</div>
 
 
-<!-- Station -->
+<div class="form-group">
 
-<label for="station">
+<label>
 Station
 </label>
 
-<select
-id="station"
-required>
+<select id="station" required>
 
 <option value="">
 -- Select Station --
 </option>
 
-<option>
-Velodrome Station
-</option>
-
-<option>
-Equestrian Station
-</option>
-
-<option>
-Pulomas Station
-</option>
-
-<option>
-Boulevard Selatan Station
-</option>
-
-<option>
-Boulevard Utara Station
-</option>
-
-<option>
-Pengangsaan Dua Station
-</option>
+<option>Velodrome Station</option>
+<option>Equestrian Station</option>
+<option>Pulomas Station</option>
+<option>Boulevard Selatan Station</option>
+<option>Boulevard Utara Station</option>
+<option>Pengangsaan Dua Station</option>
 
 </select>
 
+</div>
 
-<!-- Panel Name -->
 
-<label for="panelName">
+<div class="form-group">
+
+<label>
 Equipment Name
 </label>
 
-<select
-id="panelName"
-required>
+<select id="panelName" required>
 
 <option value="">
--- Select Panel --
+-- Select Equipment --
 </option>
 
-<option>
-HSCB out #1
-</option>
-
-<option>
-HSCB out #2
-</option>
-<option>
-HSCB out #3
-</option>
-<option>
-HSCB out #4
-</option>
+<option>HSCB Out #1</option>
+<option>HSCB Out #2</option>
+<option>HSCB Out #3</option>
+<option>HSCB Out #4</option>
 
 </select>
 
+</div>
 
-<!-- Intertripping Type -->
 
-<label for="intertripType">
+<div class="form-group">
+
+<label>
 Intertripping Type
 </label>
 
-<select
-id="intertripType"
-required>
+<select id="intertripType" required>
 
 <option value="">
 -- Select Type --
 </option>
 
-<option>
-BLS</option>
-
-<option>
-DC Switchgear
-</option>
+<option>BLS</option>
+<option>DC Switchgear</option>
 
 </select>
 
+</div>
 
-<!-- Bypass -->
 
+<div class="form-group">
 
-<label for="Bypass">
+<label>
 Bypass
 </label>
 
-<select
-id="Bypass"
-required>
+<select id="bypass" required>
 
 <option value="">
--- Select Type --
+-- Select Bypass Status --
 </option>
 
-<option>
-Applied
-</option>
-
-<option>
-Not Applied
-</option>
+<option>Applied</option>
+<option>Not Applied</option>
 
 </select>
 
+</div>
 
-<!-- Status -->
 
-<label for="statusCondition">
+<div class="form-group">
+
+<label>
 Status
 </label>
 
-<select
-id="statusCondition"
-required>
+<select id="statusCondition" required>
 
 <option value="">
 -- Select Status --
 </option>
 
-<option>
-OK
-</option>
-
-<option>
-Not OK
-</option>
+<option>OK</option>
+<option>Not OK</option>
 
 </select>
 
-<!-- Description -->
+</div>
 
-<label for="keterangan">
-Finding</label>
+
+<div class="form-group">
+
+<label>
+Finding
+</label>
 
 <textarea
 id="keterangan"
-placeholder="Input Finding">
+placeholder="Enter finding or remarks">
 </textarea>
 
+</div>
 
-<!-- Photo -->
 
-<label for="photo">
+<div class="form-group">
+
+<label>
 Photo Evidence
 </label>
 
@@ -208,15 +173,19 @@ Photo Evidence
 type="file"
 id="photo"
 accept="image/*"
-capture="environment"
 required>
+
+</div>
+
 
 <img
 id="preview"
-style="display:none;width:100%;margin-top:10px;">
+class="preview-image">
 
 
-<button type="submit">
+<button
+type="submit"
+id="submitBtn">
 
 Submit Inspection
 
@@ -224,7 +193,10 @@ Submit Inspection
 
 </form>
 
+
 <div id="status"></div>
+
+</div>
 
 </div>
 
