@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Electrical Inspection
+</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>
+Electrical Inspection Form
+</h2>
+
+<form id="inspectionForm">
+
+<input
+type="text"
+id="petugas"
+placeholder="Nama Petugas"
+required>
+
+<input
+type="text"
+id="lokasi"
+placeholder="GPS Location"
+readonly>
+
+<input
+type="text"
+id="equipment"
+placeholder="Equipment Name"
+required>
+
+<select id="kategori">
+
+<option>Panel</option>
+
+<option>UPS</option>
+
+<option>Transformer</option>
+
+<option>Generator</option>
+
+<option>Battery</option>
+
+<option>Cable Tray</option>
+
+</select>
+
+<input
+type="number"
+id="nilai"
+placeholder="Inspection Score"
+required>
+
+<textarea
+id="keterangan"
+placeholder="Description">
+</textarea>
+
+<input
+type="file"
+id="photo"
+accept="image/*"
+capture="environment"
+required>
+
+<img id="preview">
+
+<button type="submit">
+Submit
+</button>
+
+</form>
+
+<div id="status"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
