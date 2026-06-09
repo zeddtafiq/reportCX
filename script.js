@@ -1,5 +1,5 @@
 const WEB_APP_URL =
-"https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+"https://script.google.com/macros/s/AKfycbxKMFwjLzi0HAExCMAmOlFwhJloaqct1Q-raKF_HyXXcABXZ41sATgNs1F7zp_iClxHFg/exec";
 
 const form =
 document.getElementById(
@@ -26,8 +26,7 @@ document.getElementById(
 "submitBtn"
 );
 
-
-/* Preview Photo */
+/* Preview Image */
 
 photoInput.addEventListener(
 "change",
@@ -57,8 +56,7 @@ reader.readAsDataURL(file);
 }
 );
 
-
-/* Submit Form */
+/* Submit */
 
 form.addEventListener(
 "submit",
@@ -71,24 +69,188 @@ uploadInspection();
 }
 );
 
-
 function uploadInspection(){
 
-submitBtn.disabled = true;
+const file =
+photoInput.files[0];
+
+if(!file){
+
+alert(
+"Please select photo evidence"
+);
+
+return;
+
+}
+
+submitBtn.disabled =
+true;
 
 submitBtn.innerHTML =
 "Uploading...";
 
 statusBox.innerHTML = "";
 
-const file =
-photoInput.files[0];
+addTimestampToImage(
+file
+);
+
+}
+
+function addTimestampToImage(file){
 
 const reader =
 new FileReader();
 
 reader.onload =
+function(event){
+
+const img =
+new Image();
+
+img.onload =
 function(){
+
+const canvas =
+document.createElement(
+"canvas"
+);
+
+const ctx =
+canvas.getContext(
+"2d"
+);
+
+canvas.width =
+img.width;
+
+canvas.height =
+img.height;
+
+ctx.drawImage(
+img,
+0,
+0
+);
+
+const station =
+document.getElementById(
+"station"
+).value;
+
+const panelName =
+document.getElementById(
+"panelName"
+).value;
+
+const intertripType =
+document.getElementById(
+"intertripType"
+).value;
+
+const now =
+new Date();
+
+const timestamp =
+now.getFullYear() +
+"-" +
+String(
+now.getMonth()+1
+).padStart(2,"0") +
+"-" +
+String(
+now.getDate()
+).padStart(2,"0") +
+" " +
+String(
+now.getHours()
+).padStart(2,"0") +
+":" +
+String(
+now.getMinutes()
+).padStart(2,"0") +
+":" +
+String(
+now.getSeconds()
+).padStart(2,"0");
+
+const text1 =
+timestamp;
+
+const text2 =
+station;
+
+const text3 =
+panelName;
+
+const text4 =
+intertripType;
+
+ctx.fillStyle =
+"rgba(0,0,0,0.65)";
+
+ctx.fillRect(
+20,
+canvas.height - 150,
+500,
+120
+);
+
+ctx.fillStyle =
+"#ffffff";
+
+ctx.font =
+"24px Arial";
+
+ctx.fillText(
+text1,
+40,
+canvas.height - 110
+);
+
+ctx.fillText(
+text2,
+40,
+canvas.height - 80
+);
+
+ctx.fillText(
+text3,
+40,
+canvas.height - 50
+);
+
+ctx.fillText(
+text4,
+40,
+canvas.height - 20
+);
+
+const imageWithTimestamp =
+canvas.toDataURL(
+"image/jpeg",
+0.9
+);
+
+sendToSpreadsheet(
+imageWithTimestamp
+);
+
+};
+
+img.src =
+event.target.result;
+
+};
+
+reader.readAsDataURL(
+file
+);
+
+}
+
+function sendToSpreadsheet(imageData){
 
 const payload = {
 
@@ -128,7 +290,7 @@ document.getElementById(
 ).value,
 
 image:
-reader.result
+imageData
 
 };
 
@@ -194,9 +356,5 @@ submitBtn.innerHTML =
 "Submit Inspection";
 
 });
-
-};
-
-reader.readAsDataURL(file);
 
 }
