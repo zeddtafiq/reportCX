@@ -270,7 +270,7 @@ y
 ========================== */
 
 const lineX =
-x + (300 * scale);
+x + (350 * scale);
 
 ctx.beginPath();
 
