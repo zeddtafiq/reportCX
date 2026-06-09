@@ -2,33 +2,23 @@ const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbwjcuTgPWo6f_gp92cLhKg2ETLECkegEx4WsRKPSGoYk6_i-DwYq6ETT1CKzjMKkfZhcQ/exec";
 
 const form =
-document.getElementById(
-"inspectionForm"
-);
+document.getElementById("inspectionForm");
 
 const photoInput =
-document.getElementById(
-"photo"
-);
+document.getElementById("photo");
 
 const preview =
-document.getElementById(
-"preview"
-);
+document.getElementById("preview");
 
 const statusBox =
-document.getElementById(
-"status"
-);
+document.getElementById("status");
 
 const submitBtn =
-document.getElementById(
-"submitBtn"
-);
+document.getElementById("submitBtn");
 
-/* ==========================
+/* =====================================
    PREVIEW IMAGE
-========================== */
+===================================== */
 
 photoInput.addEventListener(
 "change",
@@ -58,9 +48,9 @@ reader.readAsDataURL(file);
 }
 );
 
-/* ==========================
-   SUBMIT FORM
-========================== */
+/* =====================================
+   FORM SUBMIT
+===================================== */
 
 form.addEventListener(
 "submit",
@@ -73,9 +63,9 @@ uploadInspection();
 }
 );
 
-/* ==========================
-   UPLOAD INSPECTION
-========================== */
+/* =====================================
+   UPLOAD
+===================================== */
 
 function uploadInspection(){
 
@@ -100,15 +90,13 @@ submitBtn.innerHTML =
 
 statusBox.innerHTML = "";
 
-addTimestampToImage(
-file
-);
+addTimestampToImage(file);
 
 }
 
-/* ==========================
-   ADD TIMESTAMP TO IMAGE
-========================== */
+/* =====================================
+   TIMESTAMP CAMERA STYLE
+===================================== */
 
 function addTimestampToImage(file){
 
@@ -125,14 +113,10 @@ img.onload =
 function(){
 
 const canvas =
-document.createElement(
-"canvas"
-);
+document.createElement("canvas");
 
 const ctx =
-canvas.getContext(
-"2d"
-);
+canvas.getContext("2d");
 
 canvas.width =
 img.width;
@@ -172,162 +156,202 @@ document.getElementById(
 const now =
 new Date();
 
-const timestamp =
-now.getFullYear() +
-"-" +
-String(
-now.getMonth()+1
-).padStart(2,"0") +
-"-" +
-String(
-now.getDate()
-).padStart(2,"0") +
-" " +
+const months = [
+"Jan","Feb","Mar",
+"Apr","May","Jun",
+"Jul","Aug","Sep",
+"Oct","Nov","Dec"
+];
+
+const days = [
+"Sun","Mon","Tue",
+"Wed","Thu","Fri",
+"Sat"
+];
+
+const timeText =
 String(
 now.getHours()
-).padStart(2,"0") +
+).padStart(2,"0")
++
 ":" +
 String(
 now.getMinutes()
-).padStart(2,"0") +
-":" +
-String(
-now.getSeconds()
 ).padStart(2,"0");
 
+const dateText =
+String(
+now.getDate()
+).padStart(2,"0")
++
+" " +
+months[
+now.getMonth()
+]
++
+" " +
+now.getFullYear();
+
+const dayText =
+days[
+now.getDay()
+];
+
 /* ==========================
-   RESPONSIVE SIZE
+   RESPONSIVE SCALE
 ========================== */
 
 const scale =
 img.width / 1920;
 
-const fontTitle =
+const bigFont =
 Math.max(
-28,
-40 * scale
+70,
+120 * scale
 );
 
-const fontInfo =
+const mediumFont =
 Math.max(
-24,
+22,
+38 * scale
+);
+
+const smallFont =
+Math.max(
+18,
 32 * scale
 );
 
-const boxWidth =
-Math.min(
-img.width * 0.70,
-900 * scale
-);
+/* ==========================
+   POSITION
+========================== */
 
-const boxHeight =
-Math.max(
-180,
-220 * scale
-);
+const x =
+40 * scale;
 
-const margin =
-30 * scale;
-
-const boxX =
-margin;
-
-const boxY =
+const y =
 canvas.height -
-boxHeight -
-margin;
+(180 * scale);
 
 /* ==========================
    SHADOW
 ========================== */
 
 ctx.shadowColor =
-"rgba(0,0,0,0.5)";
+"rgba(0,0,0,0.9)";
 
 ctx.shadowBlur =
-20;
+10;
 
 ctx.shadowOffsetX =
-0;
+2;
 
 ctx.shadowOffsetY =
-4;
+2;
 
 /* ==========================
-   BACKGROUND PANEL
+   TIME
 ========================== */
 
 ctx.fillStyle =
-"rgba(0,0,0,0.75)";
+"#FFFFFF";
 
-ctx.fillRect(
-boxX,
-boxY,
-boxWidth,
-boxHeight
+ctx.font =
+`bold ${bigFont}px Arial`;
+
+ctx.fillText(
+timeText,
+x,
+y
 );
 
 /* ==========================
-   BORDER
+   YELLOW LINE
 ========================== */
 
-ctx.shadowBlur = 0;
+const lineX =
+x + (250 * scale);
+
+ctx.beginPath();
 
 ctx.strokeStyle =
-"#FFFFFF";
+"#FFD700";
 
 ctx.lineWidth =
 4;
 
-ctx.strokeRect(
-boxX,
-boxY,
-boxWidth,
-boxHeight
+ctx.moveTo(
+lineX,
+y - (90 * scale)
 );
 
-/* ==========================
-   TIMESTAMP
-========================== */
-
-ctx.fillStyle =
-"#FFD700";
-
-ctx.font =
-`bold ${fontTitle}px Arial`;
-
-ctx.fillText(
-timestamp,
-boxX + 20,
-boxY + 45
+ctx.lineTo(
+lineX,
+y + (10 * scale)
 );
 
+ctx.stroke();
+
 /* ==========================
-   DETAILS
+   DATE
 ========================== */
 
 ctx.fillStyle =
 "#FFFFFF";
 
 ctx.font =
-`${fontInfo}px Arial`;
+`${mediumFont}px Arial`;
 
 ctx.fillText(
-"Station : " + station,
-boxX + 20,
-boxY + 95
+dateText,
+lineX + (20 * scale),
+y - (50 * scale)
 );
 
-ctx.fillText(
-"Panel : " + panelName,
-boxX + 20,
-boxY + 140
-);
+/* ==========================
+   DAY
+========================== */
 
 ctx.fillText(
-"Intertrip Type : " + intertripType,
-boxX + 20,
-boxY + 185
+dayText,
+lineX + (20 * scale),
+y - (10 * scale)
+);
+
+/* ==========================
+   LOCATION
+========================== */
+
+ctx.font =
+`bold ${smallFont}px Arial`;
+
+ctx.fillText(
+station,
+x,
+y + (55 * scale)
+);
+
+/* ==========================
+   PANEL NAME
+========================== */
+
+ctx.font =
+`${smallFont}px Arial`;
+
+ctx.fillText(
+panelName,
+x,
+y + (95 * scale)
+);
+
+/* ==========================
+   INTERTRIP TYPE
+========================== */
+
+ctx.fillText(
+intertripType,
+x,
+y + (135 * scale)
 );
 
 /* ==========================
@@ -351,15 +375,13 @@ event.target.result;
 
 };
 
-reader.readAsDataURL(
-file
-);
+reader.readAsDataURL(file);
 
 }
 
-/* ==========================
+/* =====================================
    SEND TO SPREADSHEET
-========================== */
+===================================== */
 
 function sendToSpreadsheet(
 imageData
