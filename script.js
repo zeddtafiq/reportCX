@@ -1,5 +1,5 @@
 const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbx3ucDxr5zkfeNHvtYmkesI9a1MedqCHma9VnWYxw9krPr89sUdcMszD5Gxp_OkeOMJbg/exec";
+"https://script.google.com/macros/s/AKfycbwjcuTgPWo6f_gp92cLhKg2ETLECkegEx4WsRKPSGoYk6_i-DwYq6ETT1CKzjMKkfZhcQ/exec";
 
 const form =
 document.getElementById(
