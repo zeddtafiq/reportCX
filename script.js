@@ -1,6 +1,8 @@
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbwjcuTgPWo6f_gp92cLhKg2ETLECkegEx4WsRKPSGoYk6_i-DwYq6ETT1CKzjMKkfZhcQ/exec";
 
+const PACUAN_KUDA_MATRIX =
+"https://drive.google.com/uc?export=view&id=1UrJdHUZDq_vm9EFTKCK_9gS0Q_wsHBHI";
 const form =
 document.getElementById("inspectionForm");
 
@@ -383,9 +385,37 @@ reader.readAsDataURL(file);
    SEND TO SPREADSHEET
 ===================================== */
 
-function sendToSpreadsheet(
-imageData
+function sendToSpreadsheet(imageData){
+
+const station =
+document.getElementById(
+"station"
+).value;
+
+const intertripType =
+document.getElementById(
+"intertripType"
+).value;
+
+/* ==========================
+   AUTO MATRIX
+========================== */
+
+let trippingMatrix = "";
+
+if(
+station === "Equestrian Station" &&
+intertripType === "BLS"
 ){
+
+trippingMatrix =
+PACUAN_KUDA_MATRIX;
+
+}
+
+/* ==========================
+   PAYLOAD
+========================== */
 
 const payload = {
 
@@ -395,9 +425,7 @@ document.getElementById(
 ).value,
 
 station:
-document.getElementById(
-"station"
-).value,
+station,
 
 panelName:
 document.getElementById(
@@ -405,9 +433,7 @@ document.getElementById(
 ).value,
 
 intertripType:
-document.getElementById(
-"intertripType"
-).value,
+intertripType,
 
 bypass:
 document.getElementById(
@@ -425,7 +451,10 @@ document.getElementById(
 ).value,
 
 image:
-imageData
+imageData,
+
+trippingMatrix:
+trippingMatrix
 
 };
 
@@ -433,16 +462,11 @@ fetch(
 WEB_APP_URL,
 {
 method:"POST",
-body:JSON.stringify(
-payload
-)
+body:JSON.stringify(payload)
 }
 )
 
-.then(
-response =>
-response.json()
-)
+.then(response => response.json())
 
 .then(data=>{
 
