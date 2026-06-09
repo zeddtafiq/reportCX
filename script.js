@@ -412,6 +412,55 @@ trippingMatrix =
 PACUAN_KUDA_MATRIX;
 
 }
+if(
+station === " Velodrome Station" &&
+intertripType === "BLS"
+){
+
+trippingMatrix =
+VELODROME_MATRIX;
+
+}if(
+station === " Pulomas Station" &&
+intertripType === "BLS"
+){
+
+trippingMatrix =
+PULOMAS_MATRIX;
+
+}
+
+if(
+station === "Boulevard Selatan Station" &&
+intertripType === "BLS"
+){
+
+trippingMatrix =
+Boulevard_Selatan_MATRIX;
+
+}
+
+if(
+station === "Boulevard Utara Station" &&
+intertripType === "BLS"
+){
+
+trippingMatrix =
+Boulevard_Utara_MATRIX;
+
+}
+
+if(
+station === "Pengangsaan Dua Station" &&
+intertripType === "BLS"
+){
+
+trippingMatrix =
+Pengangsaan_Dua_MATRIX;
+
+}
+
+
 
 /* ==========================
    PAYLOAD
