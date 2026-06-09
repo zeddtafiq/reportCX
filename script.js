@@ -270,7 +270,7 @@ y
 ========================== */
 
 const lineX =
-x + (250 * scale);
+x + (500 * scale);
 
 ctx.beginPath();
 
@@ -361,7 +361,7 @@ y + (135 * scale)
 const imageWithTimestamp =
 canvas.toDataURL(
 "image/jpeg",
-0.95
+1
 );
 
 sendToSpreadsheet(
