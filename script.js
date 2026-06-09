@@ -188,11 +188,11 @@ const text4 =
 intertripType;
 
 ctx.fillStyle =
-"hsla(61, 84%, 48%, 0.65)";
+"hsla(0, 0%, 0%, 0.65)";
 
 ctx.fillRect(
 200,
-canvas.height - 1000,
+canvas.height - 150,
 1000,
 500
 );
@@ -201,29 +201,29 @@ ctx.fillStyle =
 "#ffffff";
 
 ctx.font =
-"24px Arial";
+"100px Arial";
 
 ctx.fillText(
 text1,
-400,
+40,
 canvas.height - 110
 );
 
 ctx.fillText(
 text2,
-400,
+40,
 canvas.height - 80
 );
 
 ctx.fillText(
 text3,
-400,
+40,
 canvas.height - 50
 );
 
 ctx.fillText(
 text4,
-400,
+40,
 canvas.height - 20
 );
 
