@@ -1,5 +1,5 @@
 const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbx8xNAxxvDW75a_M57t2xk8clX_gX37LgTJMdTkMaj9IJhOpiAmKiysMVqju3Iw4X7j2A/exec";
+"https://script.google.com/macros/s/AKfycbx3ucDxr5zkfeNHvtYmkesI9a1MedqCHma9VnWYxw9krPr89sUdcMszD5Gxp_OkeOMJbg/exec";
 
 const form =
 document.getElementById(
@@ -191,10 +191,10 @@ ctx.fillStyle =
 "rgba(0,0,0,0.65)";
 
 ctx.fillRect(
-20,
+200,
 canvas.height - 150,
-500,
-120
+1000,
+500
 );
 
 ctx.fillStyle =
