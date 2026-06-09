@@ -188,11 +188,11 @@ const text4 =
 intertripType;
 
 ctx.fillStyle =
-"rgba(0,0,0,0.65)";
+"hsla(61, 84%, 48%, 0.65)";
 
 ctx.fillRect(
 200,
-canvas.height - 150,
+canvas.height - 1000,
 1000,
 500
 );
@@ -205,25 +205,25 @@ ctx.font =
 
 ctx.fillText(
 text1,
-40,
+400,
 canvas.height - 110
 );
 
 ctx.fillText(
 text2,
-40,
+400,
 canvas.height - 80
 );
 
 ctx.fillText(
 text3,
-40,
+400,
 canvas.height - 50
 );
 
 ctx.fillText(
 text4,
-40,
+400,
 canvas.height - 20
 );
 
