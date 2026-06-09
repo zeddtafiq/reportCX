@@ -26,7 +26,9 @@ document.getElementById(
 "submitBtn"
 );
 
-/* Preview Image */
+/* ==========================
+   PREVIEW IMAGE
+========================== */
 
 photoInput.addEventListener(
 "change",
@@ -56,7 +58,9 @@ reader.readAsDataURL(file);
 }
 );
 
-/* Submit */
+/* ==========================
+   SUBMIT FORM
+========================== */
 
 form.addEventListener(
 "submit",
@@ -68,6 +72,10 @@ uploadInspection();
 
 }
 );
+
+/* ==========================
+   UPLOAD INSPECTION
+========================== */
 
 function uploadInspection(){
 
@@ -97,6 +105,10 @@ file
 );
 
 }
+
+/* ==========================
+   ADD TIMESTAMP TO IMAGE
+========================== */
 
 function addTimestampToImage(file){
 
@@ -134,6 +146,10 @@ img,
 0
 );
 
+/* ==========================
+   FORM DATA
+========================== */
+
 const station =
 document.getElementById(
 "station"
@@ -148,6 +164,10 @@ const intertripType =
 document.getElementById(
 "intertripType"
 ).value;
+
+/* ==========================
+   DATE TIME
+========================== */
 
 const now =
 new Date();
@@ -175,62 +195,149 @@ String(
 now.getSeconds()
 ).padStart(2,"0");
 
-const text1 =
-timestamp;
+/* ==========================
+   RESPONSIVE SIZE
+========================== */
 
-const text2 =
-station;
+const scale =
+img.width / 1920;
 
-const text3 =
-panelName;
+const fontTitle =
+Math.max(
+28,
+40 * scale
+);
 
-const text4 =
-intertripType;
+const fontInfo =
+Math.max(
+24,
+32 * scale
+);
+
+const boxWidth =
+Math.min(
+img.width * 0.70,
+900 * scale
+);
+
+const boxHeight =
+Math.max(
+180,
+220 * scale
+);
+
+const margin =
+30 * scale;
+
+const boxX =
+margin;
+
+const boxY =
+canvas.height -
+boxHeight -
+margin;
+
+/* ==========================
+   SHADOW
+========================== */
+
+ctx.shadowColor =
+"rgba(0,0,0,0.5)";
+
+ctx.shadowBlur =
+20;
+
+ctx.shadowOffsetX =
+0;
+
+ctx.shadowOffsetY =
+4;
+
+/* ==========================
+   BACKGROUND PANEL
+========================== */
 
 ctx.fillStyle =
-"hsla(0, 0%, 0%, 0.65)";
+"rgba(0,0,0,0.75)";
 
 ctx.fillRect(
-200,
-canvas.height - 150,
-1000,
-500
+boxX,
+boxY,
+boxWidth,
+boxHeight
 );
+
+/* ==========================
+   BORDER
+========================== */
+
+ctx.shadowBlur = 0;
+
+ctx.strokeStyle =
+"#FFFFFF";
+
+ctx.lineWidth =
+4;
+
+ctx.strokeRect(
+boxX,
+boxY,
+boxWidth,
+boxHeight
+);
+
+/* ==========================
+   TIMESTAMP
+========================== */
 
 ctx.fillStyle =
-"#ffffff";
+"#FFD700";
 
 ctx.font =
-"100px Arial";
+`bold ${fontTitle}px Arial`;
 
 ctx.fillText(
-text1,
-40,
-canvas.height - 110
+timestamp,
+boxX + 20,
+boxY + 45
+);
+
+/* ==========================
+   DETAILS
+========================== */
+
+ctx.fillStyle =
+"#FFFFFF";
+
+ctx.font =
+`${fontInfo}px Arial`;
+
+ctx.fillText(
+"Station : " + station,
+boxX + 20,
+boxY + 95
 );
 
 ctx.fillText(
-text2,
-40,
-canvas.height - 80
+"Panel : " + panelName,
+boxX + 20,
+boxY + 140
 );
 
 ctx.fillText(
-text3,
-40,
-canvas.height - 50
+"Intertrip Type : " + intertripType,
+boxX + 20,
+boxY + 185
 );
 
-ctx.fillText(
-text4,
-40,
-canvas.height - 20
-);
+/* ==========================
+   EXPORT IMAGE
+========================== */
 
 const imageWithTimestamp =
 canvas.toDataURL(
 "image/jpeg",
-0.9
+0.95
 );
 
 sendToSpreadsheet(
@@ -250,7 +357,13 @@ file
 
 }
 
-function sendToSpreadsheet(imageData){
+/* ==========================
+   SEND TO SPREADSHEET
+========================== */
+
+function sendToSpreadsheet(
+imageData
+){
 
 const payload = {
 
